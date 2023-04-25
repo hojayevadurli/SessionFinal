@@ -8,5 +8,18 @@ namespace SessionFinal.Pages
         public void OnGet()
         {
         }
+
+        //public Task<IActionResult> OnPost(string email, string password)
+        //{
+
+        //    return(Redirect("")); 
+        //}
+
+        public void OnPost(string email, string password) 
+        { 
+            
+
+
+        }
     }
 }
