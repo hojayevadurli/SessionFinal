@@ -1,0 +1,20 @@
+﻿@page
+@model SessionFinal.Pages.SignupModel
+@{
+}
+
+
+<h1> Sign up on our site!</h1>
+
+@if (Model.Message != null)
+{
+    <div class="test-danger">@Model.Message</div>
+}
+else
+{
+    <form method="post">
+        <input type="email" name="email" placeholder="email address" />
+        <button type="submit"> Send verification email to get Signup link</button>
+
+    </form>
+}
