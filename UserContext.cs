@@ -20,6 +20,7 @@ namespace SessionFinal
 
         public DbSet<User>Users { get; set; }
         public DbSet<SignupCode> SignupCodes { get; set; }
+        public DbSet<Session> sessions { get; set; }
     }
 
     public class User
@@ -39,6 +40,15 @@ namespace SessionFinal
         public DateTime ExpiresOn { get; set; }
         public string Email { get; set; }
        
+    }
+
+    public class Session
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserPassword { get; set; }
+        public string Token { get; set; }
     }
 
     public static class PasswordHasher

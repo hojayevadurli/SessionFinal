@@ -61,7 +61,7 @@ namespace SessionFinal.Pages
             userContext.Users.Add(userAccount);
             await userContext.SaveChangesAsync();
 
-            return Page();
+            return RedirectToPage("/login", new { message = "Account Created" });
         }
 
 

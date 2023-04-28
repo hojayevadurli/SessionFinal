@@ -20,19 +20,17 @@ namespace SessionFinal.Pages
 
         public async Task<IActionResult> OnPostAsync(string email, string password)
         {
-            // 1. Establish a database connection
+            //Establish a database connection
             var user = await userContext.Users
                 .SingleOrDefaultAsync(u => u.Email == email && u.HashedPassword == password);
 
            
-                // 3. Check if the user was found
+                // Check if the user was found
                 if (user != null)
                 {
-                    // Set a session variable to indicate that the user is logged in
-                    HttpContext.Session.SetInt32("UserId", user.Id);
-
+                   
                     // Redirect to the home page
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToPage("/Home");
                 }
                 else
                 {
