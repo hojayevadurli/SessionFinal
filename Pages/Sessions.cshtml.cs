@@ -19,7 +19,7 @@ namespace SessionFinal.Pages
         {
             UserSessions = await _userContext.Sessions
                 .Where(us => us.ExpirationTime > DateTime.Now)
-                .Include(us => us.UserName)
+                .Include(us => us.User)
                 .ToListAsync();
 
             return Page();
