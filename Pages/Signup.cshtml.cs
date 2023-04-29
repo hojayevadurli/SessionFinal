@@ -44,7 +44,7 @@ namespace SessionFinal.Pages
                 message.From = new MailAddress("no-reply@localhost");
                 message.To.Add(new MailAddress(email));
                 message.Subject = "Sign up";
-                message.Body = $"Click this <a href= 'https://localhost:7291/createaccount?code={link.Code}'> Signup Link </a> to complete the signup process";
+                message.Body = $"Click this <a href= 'https://localhost:7115/createaccount?code={link.Code}'> Signup Link </a> to complete the signup process";
                 message.IsBodyHtml = true;
                 client.Send(message);
             }

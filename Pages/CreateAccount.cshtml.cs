@@ -12,9 +12,8 @@ namespace SessionFinal.Pages
         public string Code { get; set; }
         public string Email { get; private set; }
 
-        public CreateAccountModel(string code, UserContext userContext )
-        {
-            Code = code;
+        public CreateAccountModel(UserContext userContext )
+        {       
             this.userContext = userContext;
            
         }
@@ -42,7 +41,7 @@ namespace SessionFinal.Pages
         public async Task<IActionResult> OnPost(string password, string code)
         {
             var hashedPassword=PasswordHasher.HashPasword(password,out var salt);
-            var accountCode= await userContext.SignupCodes.FirstOrDefaultAsync(c=>c.Code==Code);
+            var accountCode= await userContext.SignupCodes.FirstOrDefaultAsync(c=>c.Code==code);
             if (accountCode == null)
             {
                 return RedirectToPage("/signup", new { message = "Invalid code" });
@@ -56,7 +55,9 @@ namespace SessionFinal.Pages
             {
                 Email = accountCode.Email,
                 HashedPassword = hashedPassword,
-                Id = accountCode.Id
+                Id = accountCode.Id,
+                Salt = Convert.ToHexString(salt),
+
             };
             userContext.Users.Add(userAccount);
             await userContext.SaveChangesAsync();
