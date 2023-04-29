@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace SessionFinal
 {
     public class UserContext :DbContext
     {
-        public UserContext(DbContextOptions<UserContext> options    ):base(options)
+        public UserContext(DbContextOptions<UserContext> options):base(options)
         {
             
         }
@@ -20,8 +21,26 @@ namespace SessionFinal
 
         public DbSet<User>Users { get; set; }
         public DbSet<SignupCode> SignupCodes { get; set; }
-        public DbSet<Session> sessions { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+
+
+        public Session CreateSession(User user)
+        {
+            var session = new Session
+            {
+                UserName = user.Email, // Or you could store the user's name instead of email
+                Token = Guid.NewGuid().ToString(),
+                ExpirationTime = DateTime.Now.AddMinutes(30),
+                UserId = user.Id
+
+               
+            };
+            Sessions.Add(session);
+            SaveChanges();
+            return session;
+        }
     }
+
 
     public class User
     {
@@ -44,12 +63,15 @@ namespace SessionFinal
 
     public class Session
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public int Id { get;set; }       
         public string UserName { get; set; }
-        public string UserPassword { get; set; }
         public string Token { get; set; }
+        public DateTime ExpirationTime { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
+
+   
 
     public static class PasswordHasher
     {

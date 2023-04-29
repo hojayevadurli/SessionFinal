@@ -1,0 +1,18 @@
+﻿@page
+@model SessionFinal.Pages.SessionsModel
+@{
+}
+@foreach (var session in Model.UserSessions)
+{
+    <tr>
+        <td>@session.User.Email</td>
+        <td>@session.Token.Substring(session.Token.Length - 4)</td>
+        <td>@session.ExpirationTime</td>
+        <td>
+            <form method="post">
+                <input type="hidden" name="sessionId" value="@session.Id" />
+                <button type="submit" class="btn btn-danger">Revoke</button>
+            </form>
+        </td>
+    </tr>
+}
