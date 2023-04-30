@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SessionFinal;
 
@@ -10,9 +11,11 @@ using SessionFinal;
 namespace SessionFinal.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20230430003522_AddUserIdColumnToSessions2")]
+    partial class AddUserIdColumnToSessions2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -26,9 +29,6 @@ namespace SessionFinal.Migrations
                     b.Property<DateTime>("ExpirationTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IX_Sessions_UserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -36,9 +36,11 @@ namespace SessionFinal.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Sessions");
                 });
@@ -89,17 +91,6 @@ namespace SessionFinal.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SessionFinal.Session", b =>
-                {
-                    b.HasOne("SessionFinal.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

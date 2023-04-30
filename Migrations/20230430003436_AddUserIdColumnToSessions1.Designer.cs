@@ -11,8 +11,8 @@ using SessionFinal;
 namespace SessionFinal.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230429070143_AddUserIdColumnToSessions")]
-    partial class AddUserIdColumnToSessions
+    [Migration("20230430003436_AddUserIdColumnToSessions1")]
+    partial class AddUserIdColumnToSessions1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,11 +33,16 @@ namespace SessionFinal.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sessions");
                 });
@@ -88,6 +93,17 @@ namespace SessionFinal.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SessionFinal.Session", b =>
+                {
+                    b.HasOne("SessionFinal.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

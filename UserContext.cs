@@ -28,7 +28,7 @@ namespace SessionFinal
         {
             var session = new Session
             {
-                UserName = user.Email, // Or you could store the user's name instead of email
+               // UserName = user.Email, // Or you could store the user's name instead of email
                 Token = Guid.NewGuid().ToString(),
                 ExpirationTime = DateTime.Now.AddMinutes(30),
                 Id=user.Id,
@@ -63,10 +63,10 @@ namespace SessionFinal
     public class Session
     {
         public int Id { get;set; }       
-        public string UserName { get; set; }
+       
         public string Token { get; set; }
         public DateTime ExpirationTime { get; set; }
-        public int UserId { get; set; }
+        public int IX_Sessions_UserId { get; set; }
         public User User { get; set; }
     }
 

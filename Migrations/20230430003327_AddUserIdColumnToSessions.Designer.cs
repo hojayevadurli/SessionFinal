@@ -11,8 +11,8 @@ using SessionFinal;
 namespace SessionFinal.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230429070303_AddUserIdColumnToSessions1")]
-    partial class AddUserIdColumnToSessions1
+    [Migration("20230430003327_AddUserIdColumnToSessions")]
+    partial class AddUserIdColumnToSessions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,10 +35,6 @@ namespace SessionFinal.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

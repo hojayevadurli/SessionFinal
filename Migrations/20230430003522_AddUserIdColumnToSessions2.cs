@@ -5,7 +5,7 @@
 namespace SessionFinal.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserIdColumnToSessions : Migration
+    public partial class AddUserIdColumnToSessions2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,22 +17,11 @@ namespace SessionFinal.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Sessions_UserId",
                 table: "Sessions");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Sessions");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Sessions",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_UserId",
                 table: "Sessions",
