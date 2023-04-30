@@ -22,6 +22,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 
 builder.Services.AddDbContext<UserContext>(options=>options.UseSqlite("Data Source=UsersContext.db"));
+builder.Services.AddScoped<SessionMiddleware>();
 
 var app = builder.Build();
 
@@ -38,6 +39,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseCookiePolicy();
 app.UseSession();
+app.UseMiddleware<SessionMiddleware>();
+
 
 
 app.UseAuthorization();

@@ -39,6 +39,7 @@ namespace SessionFinal.Pages
                 return RedirectToPage("/login", new { message = "Invalid email or password." });
             }
             var session = userContext.CreateSession(user);
+            HttpContext.Session.SetString("SessionToken", session.Token);
             Response.Cookies.Append("SessionToken", session.Token, new CookieOptions
             {
                 Expires = DateTime.Now.AddMinutes(2)
