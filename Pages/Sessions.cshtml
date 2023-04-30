@@ -1,18 +1,32 @@
 ﻿@page
 @model SessionFinal.Pages.SessionsModel
 @{
-}@*
-@foreach (var session in Model.UserSessions)
-{
-    <tr>
-        <td>@session.UserName</td>
-        <td>@session.Token.Substring(session.Token.Length - 4)</td>
-        <td>@session.ExpirationTime</td>
-        <td>
-            <form method="post">
-                <input type="hidden" name="sessionId" value="@session.Id" />
-                <button type="submit" class="btn btn-danger">Revoke</button>
-            </form>
-        </td>
-    </tr>
-}*@
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Email</th>
+            <th>Token</th>
+            <th>Expiration Time</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model.UserSessions)
+        {
+            <tr>
+                <td>@session.User.Email</td>
+                <td>@session.Token.Substring(session.Token.Length - 4)</td>
+                <td>@session.ExpirationTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="token" value="@session.Token" />
+                        <button type="submit" class="btn btn-danger">Revoke</button>
+                    </form>
+                </td>
+            </tr>
+        }
+   

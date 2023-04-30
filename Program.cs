@@ -21,7 +21,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 
 
-builder.Services.AddDbContext<UserContext>(options=>options.UseSqlite("Data Source=Users.db"));
+builder.Services.AddDbContext<UserContext>(options=>options.UseSqlite("Data Source=UsersContext.db"));
 
 var app = builder.Build();
 

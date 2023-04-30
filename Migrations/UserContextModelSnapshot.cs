@@ -26,9 +26,6 @@ namespace SessionFinal.Migrations
                     b.Property<DateTime>("ExpirationTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IX_Sessions_UserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("TEXT");
